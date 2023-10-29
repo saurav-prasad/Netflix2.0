@@ -37,7 +37,7 @@ function App() {
     },
     {
       path: '/video/:id',
-      element: <VideoDetail showAlert={showAlert}/>
+      element: <VideoDetail showAlert={showAlert} />
     },
   ])
   return (
