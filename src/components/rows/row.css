@@ -1,0 +1,45 @@
+.row {
+    padding: 5px 0px;
+    padding-left: 20px;
+}
+
+.rowTitle {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.rowPosterConatainer {
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+    padding: 20px 8px;
+    overflow-x: scroll;
+}
+
+.rowPosterConatainer::-webkit-scrollbar {
+    display: none;
+}
+
+.rowImage {
+    max-height: 120px;
+    width: 100%;
+    margin-right: 13px;
+    object-fit: contain;
+    transition: transform 150ms ease-in;
+}
+
+.rowImage:hover {
+    transform: scale(1.08);
+}
+
+.rowLargeImage {
+    max-height: 200px;
+    margin-right: 10px;
+}
+
+.clickedImage{
+    border: 2.5px solid transparent;
+    border-image: linear-gradient(to right, #dc191f, #009eff) 1;
+}

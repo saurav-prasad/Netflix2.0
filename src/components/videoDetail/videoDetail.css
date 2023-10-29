@@ -1,0 +1,94 @@
+.vdoDtl {
+    padding-top: 0px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.vdoDtlNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5px;
+}
+.vdoDtlNav div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.vdoDtlVideo {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    /* height: 500px; */
+}
+
+.vdoDtlDetailBox {
+    padding: 20px 12px;
+    padding-bottom: 30px;
+}
+
+.vdoDtlTitleBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vdoDtlTitle {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.vdoDtlLike {
+    cursor: pointer;
+}
+
+.vdoDtlDetail {
+    margin: 15px 0;
+}
+
+.vdoDtlRating {}
+
+.vdoDtlDate {
+    margin: 15px 0;
+
+}
+
+.vdoDtlVideos {
+    padding: 0 5px;
+}
+
+@media (min-width:750px) {
+    .vdoDtlVideos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 15px;
+    }
+
+    /* .vdoDtlVideoImage:hover {
+        transform: scale(1.03);
+    } */
+    .vdoDtlVideoImageBox:hover {
+        transform: scale(1.03);
+    }
+}
+
+.vdoDtlVideoImageBox {
+    margin-bottom: 20px;
+    transition: transform 150ms ease-in;
+}
+
+.vdoDtlVideoImage {
+    border-radius: 2px;
+    width: 100%;
+    object-fit: contain;
+    transition: transform 150ms ease-in;
+}
+
+.vdoDtlVideoImageTitle {
+    padding-top: 5px;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
