@@ -3,17 +3,19 @@ import YouTube from 'react-youtube'
 import './videoDetail.css'
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import requests from '../../requests';
-import axios from '../../axios';
+import axios, { backend } from '../../axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useVideoDetailState } from '../../context/videoDetailContext/VideoDetailContext';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import movieTrailer from 'movie-trailer';
 import { LinearProgress } from '@mui/material';
+import { useVideoManagerState } from '../../context/videoManagerContext/VideoManagerContext';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
 function VideoDetail({ showAlert }) {
   const navigate = useNavigate()
+  const { addHistory } = useVideoManagerState()
   const { setVideo, VideoDetailInfo } = useVideoDetailState()
   const [videoId, setVideoId] = useState()
   const params = useParams()
@@ -22,7 +24,6 @@ function VideoDetail({ showAlert }) {
   const [trailer, settrailer] = useState()
   const [progress, setprogress] = useState(false)
   const [counter, setcounter] = useState()
-
 
   const opts = {
     height: videoHeight,
@@ -39,19 +40,65 @@ function VideoDetail({ showAlert }) {
     else if (window.innerWidth < 500) {
       setVideoHeight('250')
     }
-    console.log(VideoDetailInfo);
-  }, [window.innerWidth])
+    // console.log(VideoDetailInfo);
+  }, [])
 
   useEffect(() => {
     async function fetchData() {
-      // console.log(params);
       setVideoId(params.id)
       const movieIndex = Math.floor(Math.random() * Object.keys(requests).length)
       const request = await axios.get(Object.values(requests)[movieIndex])
       setMovies(request.data.results)
+
+
+      const a = {
+        videoId: params.id,
+        backdrop_path: VideoDetailInfo.backdrop_path,
+        name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
+        release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
+        overview: VideoDetailInfo.overview,
+        vote_average: VideoDetailInfo.vote_average
+      }
+      addHistory(a)
+      // await backend.post('/history/addhistory', {
+      //   videoId: params.id,
+      //   backdrop_path: VideoDetailInfo.backdrop_path,
+      //   name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
+      //   release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
+      //   overview: VideoDetailInfo.overview,
+      //   vote_average: VideoDetailInfo.vote_average
+      // },
+      //   {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA',
+      //     }
+      //   }
+      // )
+
     }
     fetchData()
   }, [params.id])
+
+  const addToWishList = async () => {
+
+    await backend.post('/wishlist/addwishlist', {
+      videoId: params.id,
+      backdrop_path: VideoDetailInfo?.backdrop_path,
+      name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
+      release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
+      overview: VideoDetailInfo.overview,
+      vote_average: VideoDetailInfo.vote_average
+    },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA',
+        }
+      }
+    )
+
+  }
 
   const nextMovie = (data) => {
     if (trailer && (data?.id === counter)) {
@@ -80,6 +127,7 @@ function VideoDetail({ showAlert }) {
 
   return (
     <div className='vdoDtl'>
+      <button onClick={() => navigate('/history')}>CLICKHERE</button>
       <div className='vdoDtlNav'>
         <div>
           <KeyboardBackspaceRoundedIcon fontSize='large' onClick={() => navigate(-1)} className='cursorPointer' />
@@ -96,7 +144,7 @@ function VideoDetail({ showAlert }) {
       <div className='vdoDtlDetailBox'>
         <div className='vdoDtlTitleBox'>
           <h1 className='vdoDtlTitle'> {VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title}</h1>
-          <FavoriteTwoToneIcon className='vdoDtlLike' fontSize='medium' />
+          <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='medium' />
         </div>
 
         <p className='vdoDtlDetail'>{VideoDetailInfo?.overview}</p>
@@ -109,13 +157,11 @@ function VideoDetail({ showAlert }) {
             <div key={data.id} onClick={() => { nextMovie(data); }} className='vdoDtlVideoImageBox'>
               <img
                 key={data.id}
-                className={`vdoDtlVideoImage cursorPointer
-            `}
-                // ${(trailer && (data?.id === counter)) && 'clickedImage'}
+                className="vdoDtlVideoImage cursorPointer"
 
-                src={`${imageUrl}${data.backdrop_path}` ?? 'https://thumbs.gfycat.com/BackIllinformedAsianelephant-size_restricted.gif'}
+                src={`${imageUrl}${data?.backdrop_path}` ?? 'https://thumbs.gfycat.com/BackIllinformedAsianelephant-size_restricted.gif'}
 
-                alt={data.name}
+                alt={data?.name}
               />
               <p className='vdoDtlVideoImageTitle'>{data?.original_name || data?.name || data?.title}</p>
             </div>

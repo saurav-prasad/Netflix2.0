@@ -4,13 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { VideoDetailState } from './context/videoDetailContext/VideoDetailContext';
+import { UserDataState } from './context/userDataContext/UserDataState';
+import UserDataReducer, { userDataInitialState } from './context/userDataContext/UserDataReducer';
+import { VideoManagerState } from './context/videoManagerContext/VideoManagerContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <VideoDetailState>
-      <App />
-    </VideoDetailState>
+    <UserDataState initialstate={userDataInitialState} reducer={UserDataReducer}>
+      <VideoManagerState>
+        <VideoDetailState>
+          <App />
+        </VideoDetailState>
+      </VideoManagerState>
+    </UserDataState>
   </>
 );
 

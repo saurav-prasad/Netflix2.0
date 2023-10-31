@@ -3,7 +3,6 @@ import './banner.css'
 import axios from '../../axios'
 import requests from '../../requests'
 import movieTrailer from 'movie-trailer'
-import YouTube from 'react-youtube';
 import { LinearProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useVideoDetailState } from '../../context/videoDetailContext/VideoDetailContext'

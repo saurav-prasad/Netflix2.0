@@ -1,0 +1,17 @@
+.signup{
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url(https://assets.nflxext.com/ffe/siteui/vlv3/00103100-5b45-4d4f-af32-342649f1bda5/64774cd8-5c3a-4823-a0bb-1610d6971bd4/IN-en-20230821-popsignuptwoweeks-perspective_alpha_website_medium.jpg);
+    background-size: cover;
+    background-position: center; */
+}
+.signupImg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.signupForm{
+}

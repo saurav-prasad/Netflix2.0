@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import './App.css'
 import Banner from './components/banner/Banner';
@@ -9,9 +9,12 @@ import Alrt from './components/alrt/Alrt';
 import Footer from './components/footer/Footer';
 import VideoDetail from './components/videoDetail/VideoDetail';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import VideoListing from './components/history/VideoListing';
+import { useUserDataState } from './context/userDataContext/UserDataState';
+import { backend } from './axios';
+import Signup from './components/signup/Signup';
 
 function App() {
-  // console.log(process.env);
   const [alert, setAlert] = useState(null);
   const showAlert = (data) => {
     setAlert(data)
@@ -19,6 +22,56 @@ function App() {
       setAlert(null);
     }, 1000)
   }
+  const [user, dispatch] = useUserDataState()
+  useEffect(() => {
+    async function fetchData() {
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA'
+      // if (localStorage.getItem('auth-token')) {
+      if (authToken) {
+        //user
+        const userData = await backend.get('/auth/fetchuser', {
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": authToken,
+          }
+        })
+        // history
+        const historyData = await backend.get('/history/fetchhistory',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token': authToken,
+            }
+          }
+        )
+        const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+        a.reverse()
+
+        // wishlist
+        const wishListData = await backend.get('/wishlist/fetchwishlist',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token': authToken,
+            }
+          }
+        )
+        const b = wishListData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+        b.reverse()
+
+
+        dispatch({
+          ...user,
+          type: 'Set_User',
+          user: userData.data.user,
+          history: a,
+          wishList: b,
+        })
+      }
+    }
+    fetchData()
+  }, [])
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -37,8 +90,26 @@ function App() {
     },
     {
       path: '/video/:id',
-      element: <VideoDetail showAlert={showAlert} />
+      element: <>
+        <VideoDetail showAlert={showAlert} />
+      </>
     },
+    {
+      path: '/history',
+      element: <VideoListing />
+    },
+    {
+      path: '/wishlist',
+      element: <VideoListing />
+    },
+    {
+      path: '/signup',
+      element: <Signup />
+    },
+    {
+      path: '/signin',
+      element: <Signup />
+    }
   ])
   return (
     <div className='App'>

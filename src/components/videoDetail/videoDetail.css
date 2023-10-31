@@ -21,7 +21,6 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    /* height: 500px; */
 }
 
 .vdoDtlDetailBox {
@@ -44,7 +43,11 @@
 .vdoDtlLike {
     cursor: pointer;
 }
-
+.vdoDtlLike:active {
+    color: #ff0000;
+    transform: scale(0.6);
+    transition: all 100ms ease;
+}
 .vdoDtlDetail {
     margin: 15px 0;
 }

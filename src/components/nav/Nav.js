@@ -4,18 +4,26 @@ import './nav.css'
 function Nav() {
     const [handleShow, sethandleShow] = useState(false)
 
-     useEffect(() => {
+    useEffect(() => {
         try {
-            window.addEventListener('scroll', e => {
+            const handleScroll = () => {
                 if (window.scrollY > 100) {
-                    sethandleShow(true)
-                } else sethandleShow(false)
-            })
-            return () => window.removeEventListener('scroll')
+                    sethandleShow(true);
+                } else {
+                    sethandleShow(false);
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
         } catch (error) {
             console.log(error);
         }
-     }, [])
+
+    }, [])
 
     return (
         // <div style={{ backgroundColor: `${handleShow && '#141414'}` }} className='nav flexCenter'>
