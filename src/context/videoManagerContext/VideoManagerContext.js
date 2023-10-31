@@ -21,7 +21,7 @@ export const VideoManagerState = (props) => {
             )
             const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
             a.reverse()
-            console.log(a);
+            // console.log(a);
             dispatch({
                 ...user,
                 type: 'Set_User',
@@ -39,7 +39,7 @@ export const VideoManagerState = (props) => {
             )
             const a = wishlistData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
             a.reverse()
-            console.log(a);
+            // console.log(a);
             dispatch({
                 ...user,
                 type: 'Set_User',

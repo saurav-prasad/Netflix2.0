@@ -22,12 +22,12 @@ function Signup() {
     }
     useEffect(() => {
         if (localStorage.getItem('auth-token')) {
-            // navigate('/')
+            navigate('/')
         }
     }, [])
 
     const onSubmit = async (e) => {
-        console.log(data);
+        // console.log(data);
         e.preventDefault()
         try {
             if (pathnames === 'signin') {
@@ -35,7 +35,7 @@ function Signup() {
                     "email": data.email,
                     "password": data.password,
                 })
-                console.log(userData.data.token);
+                // console.log(userData.data.token);
                 dispatch({
                     ...user,
                     type: 'Set_User',
@@ -47,7 +47,7 @@ function Signup() {
             }
             else if (pathnames === 'signup') {
                 const userData = await backend.post('/auth/createuser', data)
-                console.log(userData);
+                // console.log(userData);
                 dispatch({
                     ...user,
                     type: 'Set_User',

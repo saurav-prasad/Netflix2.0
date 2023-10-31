@@ -13,7 +13,6 @@ import VideoListing from './components/videoListing/VideoListing';
 import { useUserDataState } from './context/userDataContext/UserDataState';
 import { backend } from './axios';
 import Signup from './components/signup/Signup';
-import Test from './components/test/Test';
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -28,7 +27,7 @@ function App() {
     async function fetchData() {
       try {
         if (localStorage.getItem('auth-token')) {
-          console.log("object");
+          // console.log("object");
           const authToken = localStorage.getItem('auth-token')
           //user
           const userData = await backend.get('/auth/fetchuser', {
@@ -127,7 +126,6 @@ function App() {
   ])
   return (
     <div className='App'>
-      {/* <Test /> */}
       <Alrt showAlert={alert} />
       <RouterProvider router={router} />
     </div>
