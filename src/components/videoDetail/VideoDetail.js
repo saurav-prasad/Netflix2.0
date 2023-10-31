@@ -3,7 +3,7 @@ import YouTube from 'react-youtube'
 import './videoDetail.css'
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import requests from '../../requests';
-import axios, { backend } from '../../axios';
+import axios from '../../axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useVideoDetailState } from '../../context/videoDetailContext/VideoDetailContext';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
@@ -15,7 +15,7 @@ const imageUrl = 'https://image.tmdb.org/t/p/original'
 
 function VideoDetail({ showAlert }) {
   const navigate = useNavigate()
-  const { addHistory } = useVideoManagerState()
+  const { addHistory, addWishList } = useVideoManagerState()
   const { setVideo, VideoDetailInfo } = useVideoDetailState()
   const [videoId, setVideoId] = useState()
   const params = useParams()
@@ -38,7 +38,7 @@ function VideoDetail({ showAlert }) {
       setVideoHeight('450')
     }
     else if (window.innerWidth < 500) {
-      setVideoHeight('250')
+      setVideoHeight('248')
     }
     // console.log(VideoDetailInfo);
   }, [])
@@ -81,22 +81,15 @@ function VideoDetail({ showAlert }) {
   }, [params.id])
 
   const addToWishList = async () => {
-
-    await backend.post('/wishlist/addwishlist', {
+    const a = {
       videoId: params.id,
       backdrop_path: VideoDetailInfo?.backdrop_path,
       name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
       release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
       overview: VideoDetailInfo.overview,
       vote_average: VideoDetailInfo.vote_average
-    },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA',
-        }
-      }
-    )
+    }
+    addWishList(a)
 
   }
 
@@ -127,7 +120,7 @@ function VideoDetail({ showAlert }) {
 
   return (
     <div className='vdoDtl'>
-      <button onClick={() => navigate('/history')}>CLICKHERE</button>
+      <button onClick={() => navigate('/wishlist')}>CLICKHERE</button>
       <div className='vdoDtlNav'>
         <div>
           <KeyboardBackspaceRoundedIcon fontSize='large' onClick={() => navigate(-1)} className='cursorPointer' />
