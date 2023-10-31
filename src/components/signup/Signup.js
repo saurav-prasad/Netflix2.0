@@ -4,13 +4,13 @@ import './signup.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useUserDataState } from '../../context/userDataContext/UserDataState';
 import { backend } from '../../axios';
-import axios from 'axios';
 
 function Signup() {
     const [data, setData] = useState({ name: '', email: "", password: "" })
     const [user, dispatch] = useUserDataState()
     const location = useLocation()
     const navigate = useNavigate()
+    const [error, setError] = useState()
     let pathnames = location.pathname.split('/').filter((x) => x);
     pathnames = pathnames[0]
 
@@ -27,7 +27,7 @@ function Signup() {
     }, [])
 
     const onSubmit = async (e) => {
-        // console.log(data);
+        setError()
         e.preventDefault()
         try {
             if (pathnames === 'signin') {
@@ -57,7 +57,8 @@ function Signup() {
                 navigate('/')
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
+            setError(error.response.data.message)
         }
 
     }
@@ -108,12 +109,27 @@ function Signup() {
                                     ></input>
                                 </div>
                             </div>
+                            <span className='text-red-500 font-light text-sm'>{error}</span>
                             <div>
                                 <button
                                     type="submit"
                                     className="inline-flex w-full items-center justify-center rounded-md px-3.5 py-2.5 font-medium leading-7 text-white hover:bg-black/80 testButton"
                                 >
                                     {pathnames === 'signup' ? "Sign Up" : "Sign In"} <ArrowForwardRoundedIcon className="ml-2" size={16} />
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate('/signin')
+                                        setData({ email: "test@netflix.com", password: "testnetflix" });
+                                        onSubmit(e)
+                                    }}
+                                    className="inline-flex w-full items-center justify-center rounded-md px-3.5 py-1 font-medium leading-7 text-white hover:bg-black/80 testButton testUserButton"
+                                >
+                                    Sign In as Test User <ArrowForwardRoundedIcon className="ml-2" size={16} />
                                 </button>
                             </div>
                         </div>
@@ -132,8 +148,8 @@ function Signup() {
                     <div className="mt-3 space-y-3">
                     </div>
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     )
 }
 
