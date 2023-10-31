@@ -3,27 +3,24 @@ import YouTube from 'react-youtube'
 import './videoDetail.css'
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import requests from '../../requests';
-import axios from '../../axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useVideoDetailState } from '../../context/videoDetailContext/VideoDetailContext';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import movieTrailer from 'movie-trailer';
 import { LinearProgress } from '@mui/material';
 import { useVideoManagerState } from '../../context/videoManagerContext/VideoManagerContext';
+import instance from '../../axios';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
 function VideoDetail({ showAlert }) {
   const navigate = useNavigate()
-  const { addHistory, addWishList } = useVideoManagerState()
-  const { setVideo, VideoDetailInfo } = useVideoDetailState()
+  const { fetchMoviesData, addHistory, addWishList } = useVideoManagerState()
   const [videoId, setVideoId] = useState()
   const params = useParams()
   const [Movies, setMovies] = useState([])
   const [videoHeight, setVideoHeight] = useState(350)
-  const [trailer, settrailer] = useState()
   const [progress, setprogress] = useState(false)
-  const [counter, setcounter] = useState()
+  const [movieInfo, setMovieInfo] = useState({})
 
   const opts = {
     height: videoHeight,
@@ -38,111 +35,97 @@ function VideoDetail({ showAlert }) {
       setVideoHeight('450')
     }
     else if (window.innerWidth < 500) {
-      setVideoHeight('248')
+      setVideoHeight('260')
     }
-    // console.log(VideoDetailInfo);
   }, [])
 
   useEffect(() => {
     async function fetchData() {
-      setVideoId(params.id)
-      const movieIndex = Math.floor(Math.random() * Object.keys(requests).length)
-      const request = await axios.get(Object.values(requests)[movieIndex])
-      setMovies(request.data.results)
+      try {
+        const movieIndex = Math.floor(Math.random() * Object.keys(requests).length)
+        const request = await instance.get(Object.values(requests)[movieIndex])
+        setMovies(request.data.results)
 
+        let movieData = await instance.get(`/movie/${params.movieid}?api_key=${process.env.REACT_APP_API}`)
+        movieData = movieData.data
+        setMovieInfo(movieData)
+        setVideoId(params.trailerid)
 
-      const a = {
-        videoId: params.id,
-        backdrop_path: VideoDetailInfo.backdrop_path,
-        name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
-        release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
-        overview: VideoDetailInfo.overview,
-        vote_average: VideoDetailInfo.vote_average
-      }
-      addHistory(a)
-      // await backend.post('/history/addhistory', {
-      //   videoId: params.id,
-      //   backdrop_path: VideoDetailInfo.backdrop_path,
-      //   name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
-      //   release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
-      //   overview: VideoDetailInfo.overview,
-      //   vote_average: VideoDetailInfo.vote_average
-      // },
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA',
-      //     }
-      //   }
-      // )
-
+        const a = {
+          movieId: params.movieid,
+          trailerId: params.trailerid,
+          backdrop_path: movieData?.backdrop_path,
+          name: movieData?.original_name || movieData?.name || movieData?.title,
+          release_date: movieData?.release_date || movieData?.first_air_date,
+          overview: movieData?.overview,
+          vote_average: movieData?.vote_average
+        }
+        if (localStorage.getItem('auth-token')) {
+          addHistory(a)
+        }
+      } catch (err) { console.log(err); }
     }
     fetchData()
-  }, [params.id])
+  }, [params.trailerid, params.movieid])
 
   const addToWishList = async () => {
     const a = {
-      videoId: params.id,
-      backdrop_path: VideoDetailInfo?.backdrop_path,
-      name: VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title,
-      release_date: VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date,
-      overview: VideoDetailInfo.overview,
-      vote_average: VideoDetailInfo.vote_average
+      movieId: params.movieid,
+      trailerId: params.trailerid,
+      backdrop_path: movieInfo?.backdrop_path,
+      name: movieInfo?.original_name || movieInfo?.name || movieInfo?.title,
+      release_date: movieInfo?.release_date || movieInfo?.first_air_date,
+      overview: movieInfo?.overview,
+      vote_average: movieInfo?.vote_average
     }
-    addWishList(a)
+    if (localStorage.getItem('auth-token')) {
+      addWishList(a)
+    }
 
   }
 
   const nextMovie = (data) => {
-    if (trailer && (data?.id === counter)) {
-      setcounter()
-      settrailer()
-    }
-    else {
+    try {
       setprogress(true)
       movieTrailer(data?.original_name || data?.name || data?.title)
         .then((value) => {
-          setVideo(data)
           const url = new URLSearchParams(new URL(value).search)
-          settrailer(url.get('v'))
-          console.log(url.get('v'));
-          navigate(`/video/${url.get('v')}`)
+          navigate(`/video/${data.id}/${url.get('v')}`)
           setprogress(false)
         })
         .catch((e) => {
           setprogress(false)
           showAlert(true)
-          settrailer()
         })
-      setcounter(data.id)
-    }
+    } catch (err) { console.log(err); }
   }
 
   return (
     <div className='vdoDtl'>
-      <button onClick={() => navigate('/wishlist')}>CLICKHERE</button>
-      <div className='vdoDtlNav'>
+      {/* <button onClick={() => navigate('/signup')}>SIGNUP</button>
+      <button onClick={() => navigate('/wishlist')}>WISHLIST</button>
+      <button onClick={() => navigate('/history')}>HiSTORY</button> */}
+      {/* <div className='vdoDtlNav'>
         <div>
           <KeyboardBackspaceRoundedIcon fontSize='large' onClick={() => navigate(-1)} className='cursorPointer' />
           <img onClick={() => navigate('/')} src="https://about.netflix.com/images/logo.png" className='netflixLogo cursorPointer' alt="" />
         </div>
         <img src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f?format=jpg&name=360x360" alt="" className='userLogo' />
-
-      </div>
+      </div> */}
       <YouTube
         className='vdoDtlVideo'
-        videoId={videoId}
+        videoId={videoId && videoId}
         opts={opts}
       />
       <div className='vdoDtlDetailBox'>
         <div className='vdoDtlTitleBox'>
-          <h1 className='vdoDtlTitle'> {VideoDetailInfo?.original_name || VideoDetailInfo?.name || VideoDetailInfo?.title}</h1>
+          <h1 className='vdoDtlTitle'> {movieInfo?.original_name || movieInfo?.name || movieInfo?.title}</h1>
           <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='medium' />
         </div>
 
-        <p className='vdoDtlDetail'>{VideoDetailInfo?.overview}</p>
-        <p className='vdoDtlRating'>Rating: {VideoDetailInfo?.vote_average}</p>
-        <p className='vdoDtlDate'>Release Data: {VideoDetailInfo?.release_date || VideoDetailInfo?.first_air_date}</p>
+        <p className='vdoDtlDetail'>{movieInfo?.overview}</p>
+        <p className='vdoDtlRating'>Rating: <span>{movieInfo?.vote_average} points</span></p>
+        <p className='vdoDtlDate'>Release Data: {movieInfo?.release_date || movieInfo?.first_air_date}</p>
       </div>
       <div className='vdoDtlVideos'>
         {Movies &&

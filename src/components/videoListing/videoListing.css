@@ -1,12 +1,15 @@
 .history {
     max-width: 1200px;
     margin: 0 auto;
+    /* height: 100vh; */
 }
 
 .historyHeader {
-    padding-top: 25px;
+    padding-top: 70px;
     padding-bottom: 50px;
     text-align: center;
+    font-size: 2.2rem;
+    font-weight: 500;
 }
 
 .historyVideoMain {
@@ -14,6 +17,7 @@
     flex-direction: column;
     row-gap: 25px;
     width: 100%;
+    padding-bottom: 70px;
 }
 
 .historyVideoBox {
@@ -76,6 +80,6 @@
 /* .historyVideoLike{} */
 .historyVideoLike:active {
     color: #ff0000;
-    transform: scale(0.6);
-    transition: all 100ms ease;
+    transform: scale(0.9);
+    transition: all 90ms ease;
 }

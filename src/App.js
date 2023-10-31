@@ -9,10 +9,11 @@ import Alrt from './components/alrt/Alrt';
 import Footer from './components/footer/Footer';
 import VideoDetail from './components/videoDetail/VideoDetail';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import VideoListing from './components/history/VideoListing';
+import VideoListing from './components/videoListing/VideoListing';
 import { useUserDataState } from './context/userDataContext/UserDataState';
 import { backend } from './axios';
 import Signup from './components/signup/Signup';
+import Test from './components/test/Test';
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -25,49 +26,51 @@ function App() {
   const [user, dispatch] = useUserDataState()
   useEffect(() => {
     async function fetchData() {
-      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA'
-      // if (localStorage.getItem('auth-token')) {
-      if (authToken) {
-        //user
-        const userData = await backend.get('/auth/fetchuser', {
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": authToken,
-          }
-        })
-        // history
-        const historyData = await backend.get('/history/fetchhistory',
-          {
+      try {
+        if (localStorage.getItem('auth-token')) {
+          console.log("object");
+          const authToken = localStorage.getItem('auth-token')
+          //user
+          const userData = await backend.get('/auth/fetchuser', {
             headers: {
-              'Content-Type': 'application/json',
-              'auth-token': authToken,
+              "Content-Type": "application/json",
+              "auth-token": authToken,
             }
-          }
-        )
-        const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
-        a.reverse()
-
-        // wishlist
-        const wishListData = await backend.get('/wishlist/fetchwishlist',
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'auth-token': authToken,
+          })
+          // history
+          const historyData = await backend.get('/history/fetchhistory',
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token': authToken,
+              }
             }
-          }
-        )
-        const b = wishListData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
-        b.reverse()
+          )
+          const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+          a.reverse()
+
+          // wishlist
+          const wishListData = await backend.get('/wishlist/fetchwishlist',
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token': authToken,
+              }
+            }
+          )
+          const b = wishListData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+          b.reverse()
 
 
-        dispatch({
-          ...user,
-          type: 'Set_User',
-          user: userData.data.user,
-          history: a,
-          wishList: b,
-        })
-      }
+          dispatch({
+            ...user,
+            type: 'Set_User',
+            user: userData.data.user,
+            history: a,
+            wishList: b,
+          })
+        }
+      } catch (err) { console.log(err); }
     }
     fetchData()
   }, [])
@@ -86,21 +89,32 @@ function App() {
         <Row showAlert={showAlert} title='Horror' fetchUrl={requests.fetchHorrorMovies} />
         <Row showAlert={showAlert} title='Romance' fetchUrl={requests.fetchRomanceMovies} />
         <Row showAlert={showAlert} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
+        <Footer />
       </>
     },
     {
-      path: '/video/:id',
+      path: '/video/:movieid/:trailerid',
       element: <>
+        <Nav showBackButton={true} />
         <VideoDetail showAlert={showAlert} />
+        <Footer />
       </>
     },
     {
       path: '/history',
-      element: <VideoListing />
+      element: <>
+        <Nav showBackButton={true} />
+        <VideoListing />
+        <Footer />
+      </>
     },
     {
       path: '/wishlist',
-      element: <VideoListing />
+      element: <>
+        <Nav showBackButton={true} />
+        <VideoListing />
+        <Footer />
+      </>
     },
     {
       path: '/signup',
@@ -113,9 +127,9 @@ function App() {
   ])
   return (
     <div className='App'>
+      {/* <Test /> */}
       <Alrt showAlert={alert} />
       <RouterProvider router={router} />
-      <Footer />
     </div>
   );
 }

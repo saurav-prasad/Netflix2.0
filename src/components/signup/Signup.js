@@ -1,22 +1,139 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import './signup.css'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useUserDataState } from '../../context/userDataContext/UserDataState';
+import { backend } from '../../axios';
+import axios from 'axios';
 
 function Signup() {
-    const [data, setData] = useState({ email: '', password: '', name: '' })
-    const onChange = () => {
+    const [data, setData] = useState({ name: '', email: "", password: "" })
+    const [user, dispatch] = useUserDataState()
+    const location = useLocation()
+    const navigate = useNavigate()
+    let pathnames = location.pathname.split('/').filter((x) => x);
+    pathnames = pathnames[0]
+
+    const onChange = (e) => {
+        setData({
+            ...data,
+            [e.target.id]: e.target.value
+        })
+    }
+    useEffect(() => {
+        if (localStorage.getItem('auth-token')) {
+            // navigate('/')
+        }
+    }, [])
+
+    const onSubmit = async (e) => {
+        console.log(data);
+        e.preventDefault()
+        try {
+            if (pathnames === 'signin') {
+                const userData = await backend.post('/auth/loginuser', {
+                    "email": data.email,
+                    "password": data.password,
+                })
+                console.log(userData.data.token);
+                dispatch({
+                    ...user,
+                    type: 'Set_User',
+                    user: userData.data.user
+                })
+
+                localStorage.setItem("auth-token", userData.data.token)
+                navigate('/')
+            }
+            else if (pathnames === 'signup') {
+                const userData = await backend.post('/auth/createuser', data)
+                console.log(userData);
+                dispatch({
+                    ...user,
+                    type: 'Set_User',
+                    user: userData.data.data
+                })
+                localStorage.setItem("auth-token", userData.data.authToken)
+                navigate('/')
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
     }
+
     return (
-        <div className='signup'>
-            <img className='signupImg' src="https://assets.nflxext.com/ffe/siteui/vlv3/00103100-5b45-4d4f-af32-342649f1bda5/64774cd8-5c3a-4823-a0bb-1610d6971bd4/IN-en-20230821-popsignuptwoweeks-perspective_alpha_website_medium.jpg" alt="" />
-            <form className='signupForm'>
-                <h1>Sign up</h1>
-                <input type="text" name="" id="" placeholder='Name' />
-                <input type="text" name="" id="" placeholder='Email' />
-                <input type="text" name="" id="" placeholder='Password' />
-                <button>Sign Up</button>
-            </form>
-        </div>
+        <section className='flexCenter test'>
+            <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+                <div className="testForm rounded-md py-12 px-12 p xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+                    <div className=" mb-2 flex justify-center">
+                        <Link to='/'>
+                            <img className='w-44' src="https://about.netflix.com/images/logo.png" alt="" />
+                        </Link>
+                    </div>
+                    <form onSubmit={onSubmit} className="mt-8 sm:w-80 w-60">
+                        <div className="space-y-5">
+                            {(pathnames === 'signup') && <div>
+                                <div className="mt-2">
+                                    <input
+                                        onChange={onChange}
+                                        className="testFromInput flex h-12 w-full rounded-md border border-gray-300 bg-transparent px-3 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                        type="text"
+                                        placeholder="Full Name"
+                                        id="name"
+                                    ></input>
+                                </div>
+                            </div>}
+                            <div>
+                                <div className="mt-2">
+                                    <input
+                                        onChange={(e) => onChange(e)}
+                                        className="testFromInput flex h-12 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                        type="email"
+                                        placeholder="Email"
+                                        id="email"
+                                    ></input>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="flex items-center justify-between">
+                                </div>
+                                <div className="mt-2">
+                                    <input
+                                        onChange={(e) => onChange(e)}
+                                        className="testFromInput flex h-12 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                        type="password"
+                                        placeholder="Password"
+                                        id="password"
+                                    ></input>
+                                </div>
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    className="inline-flex w-full items-center justify-center rounded-md px-3.5 py-2.5 font-medium leading-7 text-white hover:bg-black/80 testButton"
+                                >
+                                    {pathnames === 'signup' ? "Sign Up" : "Sign In"} <ArrowForwardRoundedIcon className="ml-2" size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p className="mt-5 text-center text-gray-400 text-white">
+                        {pathnames === 'signup' ? "Already Registered" : "New to Netflix"}?{' '}
+                        <Link
+                            to={pathnames === 'signup' ? '/signin' : '/signup'}
+
+                        >
+                            <span className="font-light text-gray-400 transition-all duration-200 hover:underline">
+                                {pathnames === 'signup' ? "Sign in" : "Sign Up Now"}
+                            </span>
+                        </Link>
+                    </p>
+                    <div className="mt-3 space-y-3">
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }
 

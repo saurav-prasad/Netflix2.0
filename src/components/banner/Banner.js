@@ -5,44 +5,25 @@ import requests from '../../requests'
 import movieTrailer from 'movie-trailer'
 import { LinearProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useVideoDetailState } from '../../context/videoDetailContext/VideoDetailContext'
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
 function Banner({ showAlert }) {
     const navigate = useNavigate()
-    const { setVideo } = useVideoDetailState()
-    const [trailer, settrailer] = useState()
-    const [counter, setcounter] = useState()
     const [progress, setprogress] = useState(false)
-    const opts = {
-        height: '390',
-        width: '100%',
-        playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-        },
-    };
+
     const getMovie = async (data) => {
-        if (trailer && (data?.id === counter)) {
-            settrailer()
-        }
-        else {
-            setprogress(true)
-            movieTrailer(data?.original_name || data?.name || data?.title)
-                .then((value) => {
-                    const url = new URLSearchParams(new URL(value).search)
-                    navigate(`/video/${url.get('v')}`)
-                    setVideo(data)
-                    settrailer(url.get('v'))
-                    setprogress(false)
-                })
-                .catch((e) => {
-                    setprogress(false)
-                    showAlert(true)
-                })
-            setcounter(data.id)
-        }
+        setprogress(true)
+        movieTrailer(data?.original_name || data?.name || data?.title)
+            .then((value) => {
+                const url = new URLSearchParams(new URL(value).search)
+                navigate(`/video/${data.id}/${url.get('v')}`)
+                setprogress(false)
+            })
+            .catch((e) => {
+                setprogress(false)
+                showAlert(true)
+            })
     }
 
     const [Movies, setMovies] = useState([])
@@ -72,9 +53,8 @@ function Banner({ showAlert }) {
                             <span className='bannerYear'>{Movies?.first_air_date?.slice(0, 4)}</span>
                         </div>
                         <p className='bannerDesc'>{trim(Movies.overview, 180)}</p>
-                        {/* button */}
-                        <button onClick={() => getMovie(Movies)} className='bannerButton flexCenter cursorPointer'>
-                            {trailer ? "❌ Close" : "► Watch"}
+                        <button onClick={() => getMovie(Movies)} className='bg-white bannerButton flexCenter cursorPointer'>
+                            ► Watch
                         </button>
                     </div>
                 </div>
@@ -85,13 +65,6 @@ function Banner({ showAlert }) {
                 progress &&
                 <LinearProgress style={{ marginBottom: '7px', backgroundColor: "#dc191f", color: '#dc191f' }} color='inherit' />
             }
-            {/* {
-                trailer &&
-                <YouTube
-                    videoId={trailer}
-                    opts={opts} />
-
-            } */}
         </>
     )
 }

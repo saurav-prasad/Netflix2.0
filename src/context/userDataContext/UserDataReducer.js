@@ -7,7 +7,7 @@ export const actionTypes = {
 }
 
 const UserDataReducer = (state, action) => {
-    console.log(state);
+    // console.log(state);
     console.log(action);
     switch (action.type) {
         case actionTypes.setUser:

@@ -7,9 +7,9 @@ const VideoManagerContext = createContext()
 export const VideoManagerState = (props) => {
     const [user, dispatch] = useUserDataState()
 
-    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjY1M2U3NDcwNGRjZmY3ZTczY2NjYzkwNyJ9LCJpYXQiOjE2OTg1OTMxMDh9.Nr-iRzNaBbVjh8SH1qK9cBF_Zbo3s6OZwYApTTwroWA'
+    const authToken = localStorage.getItem('auth-token')
 
-    const fetchData = async (check) => {
+    const fetchMoviesData = async (check) => {
         if (check === 'history') {
             const historyData = await backend.get('/history/fetchhistory',
                 {
@@ -51,7 +51,8 @@ export const VideoManagerState = (props) => {
     // History
     const addHistory = async (data) => {
         const newData = {
-            videoId: data.videoId,
+            trailerId: data.trailerId,
+            movieId: data.movieId,
             backdrop_path: data?.backdrop_path,
             name: data?.original_name || data?.name || data?.title,
             release_date: data?.release_date || data?.first_air_date,
@@ -67,11 +68,11 @@ export const VideoManagerState = (props) => {
             }
         )
         if (savedHistory) {
-            fetchData('history')
+            fetchMoviesData('history')
         }
     }
-    const deleteHistory = async (videoId) => {
-        await backend.delete(`/history/deletehistory/${videoId}`,
+    const deleteHistory = async (movieId) => {
+        await backend.delete(`/history/deletehistory/${movieId}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,7 +80,7 @@ export const VideoManagerState = (props) => {
                 }
             }
         )
-        const updatedData = user.history.filter((item) => item.videoId !== videoId)
+        const updatedData = user.history.filter((item) => item.movieId !== movieId)
         dispatch({
             ...user,
             type: 'Set_User',
@@ -89,7 +90,8 @@ export const VideoManagerState = (props) => {
     // WishList
     const addWishList = async (data) => {
         const newData = {
-            videoId: data.videoId,
+            trailerId: data.trailerId,
+            movieId: data.movieId,
             backdrop_path: data?.backdrop_path,
             name: data?.original_name || data?.name || data?.title,
             release_date: data?.release_date || data?.first_air_date,
@@ -105,11 +107,11 @@ export const VideoManagerState = (props) => {
             }
         )
         if (savedWishList) {
-            fetchData('wishList')
+            fetchMoviesData('wishList')
         }
     }
-    const deleteWishList = async (videoId) => {
-        await backend.delete(`/wishlist/deletewishlist/${videoId}`,
+    const deleteWishList = async (movieId) => {
+        await backend.delete(`/wishlist/deletewishlist/${movieId}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +119,7 @@ export const VideoManagerState = (props) => {
                 }
             }
         )
-        const updatedData = user.wishList.filter((item) => item.videoId !== videoId)
+        const updatedData = user.wishList.filter((item) => item.movieId !== movieId)
         dispatch({
             ...user,
             type: 'Set_User',
