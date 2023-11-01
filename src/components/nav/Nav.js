@@ -61,20 +61,20 @@ function Nav({ showBackButton }) {
                 <img onClick={() => setToggleMenu(!toggleMenu)} src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f?format=jpg&name=360x360" alt="" className='userLogo cursorPointer' />
 
                 {
-                    toggleMenu && <div className='transition-all duration-700 rounded absolute px-4 pt-10 pb-5 flex flex-col justify-start items-start w-32 top-0 right-0 bg-gray-700 text-white'>
+                    toggleMenu && <div className='transition-all duration-700 rounded absolute px-5 pt-10 pb-5 flex flex-col justify-start items-start w-40 top-0 right-0 bg-gray-700 text-white'>
 
                         <CloseRoundedIcon onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer absolute right-3 top-3' />
-                        <Link to="/" className=' my-2'>
+                        <Link to="/" className=' my-3 w-full'>
                             <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light'>
                                 <HomeRoundedIcon fontSize='small' className='mr-1' />Home
                             </span>
                         </Link>
-                        <Link to="/history" className=' my-2'>
+                        <Link to="/history" className=' my-3 w-full'>
                             <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light'>
                                 <HistoryRoundedIcon fontSize='small' className='mr-1' />History
                             </span>
                         </Link>
-                        <Link className='my-2' to="/wishlist">
+                        <Link className='my-3 w-full' to="/wishlist">
                             <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light '>
                                 <FavoriteBorderRoundedIcon fontSize='small' className='mr-1' />Wishlist
                             </span>
@@ -90,7 +90,7 @@ function Nav({ showBackButton }) {
                                 </span>
                             </> :
                             <>
-                                <Link to="/signin" className=' my-2'>
+                                <Link to="/signin" className=' my-3 w-full'>
                                     <span onClick={() => { setToggleMenu(!toggleMenu) }}
                                         className='cursorPointer font-light'>
                                         <ArrowForwardRoundedIcon fontSize='small' className='mr-1' />Sign In

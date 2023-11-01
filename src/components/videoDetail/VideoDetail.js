@@ -120,7 +120,7 @@ function VideoDetail({ showAlert }) {
       <div className='vdoDtlDetailBox'>
         <div className='vdoDtlTitleBox'>
           <h1 className='vdoDtlTitle'> {movieInfo?.original_name || movieInfo?.name || movieInfo?.title}</h1>
-          <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='medium' />
+          <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='large' />
         </div>
 
         <p className='vdoDtlDetail'>{movieInfo?.overview}</p>

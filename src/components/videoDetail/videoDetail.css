@@ -29,19 +29,20 @@
 .vdoDtlDetailBox {
     padding: 20px 12px;
     padding-bottom: 30px;
-    padding-top: 75px;
+    padding-top: 100px;
 }
 
 .vdoDtlTitleBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 }
 
 .vdoDtlTitle {
     font-weight: 600;
     font-size: 1.8rem;
+    margin-right: 5px;
 }
 
 .vdoDtlLike {
