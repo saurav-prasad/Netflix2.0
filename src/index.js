@@ -6,15 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { UserDataState } from './context/userDataContext/UserDataState';
 import UserDataReducer, { userDataInitialState } from './context/userDataContext/UserDataReducer';
 import { VideoManagerState } from './context/videoManagerContext/VideoManagerContext';
+import { HomeState } from './context/homeContext/HomeState';
+import HomeReducer, { homeInitialState } from './context/homeContext/HomeReducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <UserDataState initialstate={userDataInitialState} reducer={UserDataReducer}>
-      <VideoManagerState>
+    <HomeState initialstate={homeInitialState} reducer={HomeReducer}>
+      <UserDataState initialstate={userDataInitialState} reducer={UserDataReducer}>
+        <VideoManagerState>
           <App />
-      </VideoManagerState>
-    </UserDataState>
+        </VideoManagerState>
+      </UserDataState>
+    </HomeState>
   </>
 );
 

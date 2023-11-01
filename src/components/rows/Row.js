@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './row.css'
-import axios from '../../axios'
 import movieTrailer from 'movie-trailer';
 import { LinearProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import instance from '../../axios';
+import { useHomeState } from '../../context/homeContext/HomeState';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
@@ -11,7 +12,7 @@ function Row({ title, fetchUrl, isLargeRow, showAlert }) {
     const navigate = useNavigate()
     const [counter, setcounter] = useState()
     const [progress, setprogress] = useState(false)
-
+    const [data, dispatch] = useHomeState()
 
     const getMovie = async (data) => {
         if (data?.id === counter) {
@@ -37,8 +38,19 @@ function Row({ title, fetchUrl, isLargeRow, showAlert }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const request = await axios.get(fetchUrl)
-            setMovies(request.data.results)
+            if (data[title]) {
+                setMovies(data[title])
+            }
+            else {
+                const request = await instance.get(fetchUrl)
+                setMovies(request.data.results)
+                dispatch({
+                    ...data,
+                    type: "Set_Data",
+                    key: title,
+                    value: request.data.results,
+                })
+            }
         }
         fetchData()
     }, [fetchUrl])
@@ -56,7 +68,7 @@ function Row({ title, fetchUrl, isLargeRow, showAlert }) {
 
                             src={`${imageUrl}${isLargeRow ? data.poster_path : data.backdrop_path}` ?? 'https://thumbs.gfycat.com/BackIllinformedAsianelephant-size_restricted.gif'}
 
-                            onClick={() => { getMovie(data);}}
+                            onClick={() => { getMovie(data); }}
                             alt={data.name}
                         />
                     )

@@ -41,7 +41,7 @@ function Signup() {
                     type: 'Set_User',
                     user: userData.data.user
                 })
-
+                fetchUserData(userData.data.token)
                 localStorage.setItem("auth-token", userData.data.token)
                 navigate('/')
             }
@@ -62,7 +62,61 @@ function Signup() {
         }
 
     }
+    const testUserLogin = async (e) => {
+        setError()
+        e.preventDefault()
+        try {
+            const userData = await backend.post('/auth/loginuser', {
+                "email": "test@netflix.com",
+                "password": "testnetflix",
+            })
+            dispatch({
+                ...user,
+                type: 'Set_User',
+                user: userData.data.user
+            })
+            fetchUserData(userData.data.token)
+            localStorage.setItem("auth-token", userData.data.token)
+            navigate('/')
 
+        } catch (error) {
+            console.log(error.response.data.message);
+            setError(error.response.data.message)
+        }
+    }
+    const fetchUserData = async (authToken) => {
+        // history
+        const historyData = await backend.get('/history/fetchhistory',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': authToken,
+                }
+            }
+        )
+        const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+        a.reverse()
+
+        // wishlist
+        const wishListData = await backend.get('/wishlist/fetchwishlist',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': authToken,
+                }
+            }
+        )
+        const b = wishListData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+        b.reverse()
+
+        dispatch({
+            ...user,
+            type: 'Set_User',
+            history: a,
+            wishList: b,
+        })
+    }
+    
     return (
         <section className='flexCenter test'>
             <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
@@ -121,12 +175,7 @@ function Signup() {
                             <div>
                                 <button
                                     type="button"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        navigate('/signin')
-                                        setData({ email: "test@netflix.com", password: "testnetflix" });
-                                        onSubmit(e)
-                                    }}
+                                    onClick={testUserLogin}
                                     className="inline-flex w-full items-center justify-center rounded-md px-3.5 py-1 font-medium leading-7 text-white hover:bg-black/80 testButton testUserButton"
                                 >
                                     Sign In as Test User <ArrowForwardRoundedIcon className="ml-2" size={16} />
