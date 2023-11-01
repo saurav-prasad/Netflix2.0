@@ -79,7 +79,7 @@ function Nav({ showBackButton }) {
                                 <FavoriteBorderRoundedIcon fontSize='small' className='mr-1' />Wishlist
                             </span>
                         </Link>
-                        {checkUser ?
+                        {user ?
                             <>
                                 <span className='font-light my-2'>
                                     👋 Hi {checkUser}

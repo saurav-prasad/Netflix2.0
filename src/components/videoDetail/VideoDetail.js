@@ -102,16 +102,6 @@ function VideoDetail({ showAlert }) {
 
   return (
     <div className='vdoDtl'>
-      {/* <button onClick={() => navigate('/signup')}>SIGNUP</button>
-      <button onClick={() => navigate('/wishlist')}>WISHLIST</button>
-      <button onClick={() => navigate('/history')}>HiSTORY</button> */}
-      {/* <div className='vdoDtlNav'>
-        <div>
-          <KeyboardBackspaceRoundedIcon fontSize='large' onClick={() => navigate(-1)} className='cursorPointer' />
-          <img onClick={() => navigate('/')} src="https://about.netflix.com/images/logo.png" className='netflixLogo cursorPointer' alt="" />
-        </div>
-        <img src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f?format=jpg&name=360x360" alt="" className='userLogo' />
-      </div> */}
       <YouTube
         className='vdoDtlVideo'
         videoId={videoId && videoId}

@@ -51,7 +51,7 @@ function Banner({ showAlert }) {
                         <div className='bannerDetail'>
                             <span className='bannerVote'>{Movies.vote_average} points</span>
                             <span className='bannerYear'>{Movies?.first_air_date?.slice(0, 4)}</span>
-                        </div>
+                        </div> 
                         <p className='bannerDesc'>{trim(Movies.overview, 180)}</p>
                         <button onClick={() => getMovie(Movies)} className='bg-white bannerButton flexCenter cursorPointer'>
                             ► Watch
