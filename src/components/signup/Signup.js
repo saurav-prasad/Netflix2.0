@@ -4,10 +4,12 @@ import './signup.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useUserDataState } from '../../context/userDataContext/UserDataState';
 import { backend } from '../../axios';
+import { useVideoManagerState } from '../../context/videoManagerContext/VideoManagerContext';
 
 function Signup() {
     const [data, setData] = useState({ name: '', email: "", password: "" })
     const [user, dispatch] = useUserDataState()
+    const { fetchMoviesData } = useVideoManagerState()
     const location = useLocation()
     const navigate = useNavigate()
     const [error, setError] = useState()
@@ -75,7 +77,8 @@ function Signup() {
                 type: 'Set_User',
                 user: userData.data.user
             })
-            fetchUserData(userData.data.token)
+            //fetchUserData(userData.data.token)
+            // fetchMoviesData('history')
             localStorage.setItem("auth-token", userData.data.token)
             navigate('/')
 
@@ -85,38 +88,40 @@ function Signup() {
         }
     }
     const fetchUserData = async (authToken) => {
+        console.log(user);
+        console.log(authToken);
         // history
         const historyData = await backend.get('/history/fetchhistory',
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': authToken,
-                }
-            }
+            //         {
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'auth-token': authToken,
+            //             }
+            //         }
         )
         const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
         a.reverse()
 
         // wishlist
         const wishListData = await backend.get('/wishlist/fetchwishlist',
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': authToken,
-                }
-            }
+            //         {
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'auth-token': authToken,
+            //             }
+            //         }
         )
         const b = wishListData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
         b.reverse()
 
-        dispatch({
-            ...user,
-            type: 'Set_User',
-            history: a,
-            wishList: b,
-        })
+            (a && b) && dispatch({
+                ...user,
+                type: 'Set_User',
+                history: a,
+                wishList: b,
+            })
     }
-    
+
     return (
         <section className='flexCenter test'>
             <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">

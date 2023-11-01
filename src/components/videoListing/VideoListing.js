@@ -13,7 +13,7 @@ import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
 
 
 function History({ showAlert }) {
-    const { addHistory, deleteHistory, addWishList, deleteWishList } = useVideoManagerState()
+    const { addHistory, deleteHistory, addWishList, deleteWishList, fetchMoviesData } = useVideoManagerState()
     const [user] = useUserDataState()
     const [Movies, setMovies] = useState([])
     const [textTrim, setTextTrim] = useState({ title: 10, desc: 50 })
@@ -32,11 +32,17 @@ function History({ showAlert }) {
     }, [])
 
     useEffect(() => {
-        ((pathnames[0] === 'history') &&
-            setMovies(user?.history)) ||
-            ((pathnames[0] === 'wishlist') &&
-                setMovies(user?.wishList))
-    }, [user,pathnames])
+        const path = (pathnames[0] === 'wishlist') ? 'wishList' : 'history'
+        if (user[path]) {
+            ((pathnames[0] === 'history') &&
+                setMovies(user?.history)) ||
+                ((pathnames[0] === 'wishlist') &&
+                    setMovies(user?.wishList))
+        }
+        else {
+            fetchMoviesData(path)
+        }
+    }, [user, pathnames])
 
 
     const trim = (str, n) => {

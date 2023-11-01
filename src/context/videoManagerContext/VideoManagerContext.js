@@ -10,41 +10,48 @@ export const VideoManagerState = (props) => {
     const authToken = localStorage.getItem('auth-token')
 
     const fetchMoviesData = async (check) => {
-        if (check === 'history') {
-            const historyData = await backend.get('/history/fetchhistory',
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'auth-token': authToken,
+        // console.log(user);
+        try {
+
+
+            if (check === 'history') {
+                const historyData = await backend.get('/history/fetchhistory',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'auth-token': authToken,
+                        }
                     }
-                }
-            )
-            const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
-            a.reverse()
-            // console.log(a);
-            dispatch({
-                ...user,
-                type: 'Set_User',
-                history: a
-            })
-        }
-        else if (check === 'wishList') {
-            const wishlistData = await backend.get('/wishlist/fetchwishlist',
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'auth-token': authToken,
+                )
+                const a = historyData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+                a.reverse()
+                // console.log(a);
+                dispatch({
+                    ...user,
+                    type: 'Set_User',
+                    history: a
+                })
+            }
+            else if (check === 'wishList') {
+                const wishlistData = await backend.get('/wishlist/fetchwishlist',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'auth-token': authToken,
+                        }
                     }
-                }
-            )
-            const a = wishlistData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
-            a.reverse()
-            // console.log(a);
-            dispatch({
-                ...user,
-                type: 'Set_User',
-                wishList: a
-            })
+                )
+                const a = wishlistData.data.data?.sort((a, b) => a.timeStamp.localeCompare(b.timeStamp));
+                a.reverse()
+                // console.log(a);
+                dispatch({
+                    ...user,
+                    type: 'Set_User',
+                    wishList: a
+                })
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -127,7 +134,7 @@ export const VideoManagerState = (props) => {
         })
     }
 
-    return <VideoManagerContext.Provider value={{ addHistory, deleteHistory, addWishList, deleteWishList }}>
+    return <VideoManagerContext.Provider value={{ addHistory, deleteHistory, addWishList, deleteWishList, fetchMoviesData }}>
         {props.children}
     </VideoManagerContext.Provider>
 }

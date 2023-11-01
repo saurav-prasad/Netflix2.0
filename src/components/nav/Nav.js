@@ -43,6 +43,7 @@ function Nav({ showBackButton }) {
 
     }, [])
     useEffect(() => {
+        // console.log(user);
         if (user) {
             setCheckUser(user.user?.name)
         }
@@ -79,7 +80,7 @@ function Nav({ showBackButton }) {
                                 <FavoriteBorderRoundedIcon fontSize='small' className='mr-1' />Wishlist
                             </span>
                         </Link>
-                        {user ?
+                        {checkUser ?
                             <>
                                 <span className='font-light my-2'>
                                     👋 Hi {checkUser}
