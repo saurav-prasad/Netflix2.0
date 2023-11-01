@@ -36,7 +36,7 @@ function History({ showAlert }) {
             setMovies(user?.history)) ||
             ((pathnames[0] === 'wishlist') &&
                 setMovies(user?.wishList))
-    }, [user])
+    }, [user,pathnames])
 
 
     const trim = (str, n) => {
