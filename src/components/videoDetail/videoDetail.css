@@ -60,7 +60,7 @@
 }
 
 .vdoDtlRating span {
-    color: #46d369;
+    color: #5bef80;
 
 }
 
@@ -102,4 +102,7 @@
     padding-top: 5px;
     font-size: 1.25rem;
     font-weight: 500;
+}
+.vdoDtlGenres{
+    margin-left: 5px;
 }

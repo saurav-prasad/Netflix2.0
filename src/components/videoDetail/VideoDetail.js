@@ -52,7 +52,7 @@ function VideoDetail({ showAlert }) {
         movieData = movieData.data
         setMovieInfo(movieData)
         setVideoId(params.trailerid)
-
+        console.log(movieData);
         const a = {
           movieId: params.movieid,
           trailerId: params.trailerid,
@@ -123,8 +123,10 @@ function VideoDetail({ showAlert }) {
           <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='large' />
         </div>
 
+        {movieInfo.tagline && <p className='vdoDtlDetail text-xl text-blue-300'>Tagline: "{movieInfo?.tagline}"</p>}
         <p className='vdoDtlDetail'>{movieInfo?.overview}</p>
         <p className='vdoDtlRating'>Rating: <span>{movieInfo?.vote_average} points</span></p>
+        <p className='vdoDtlDate'>Genres: <span>{movieInfo?.genres?.map((a) => <span className='vdoDtlGenres'>{a.name}</span>)} </span></p>
         <p className='vdoDtlDate'>Release Data: {movieInfo?.release_date || movieInfo?.first_air_date}</p>
       </div>
       <div className='vdoDtlVideos'>
