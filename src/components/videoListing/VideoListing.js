@@ -12,7 +12,7 @@ import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
 
 
 
-function History({ showAlert }) {
+function History({ showAlert,setAlertText }) {
     const { addHistory, deleteHistory, addWishList, deleteWishList, fetchMoviesData } = useVideoManagerState()
     const [user] = useUserDataState()
     const [Movies, setMovies] = useState([])
@@ -59,6 +59,7 @@ function History({ showAlert }) {
             })
             .catch((e) => {
                 showAlert(true)
+                setAlertText('Trailer not available')
             })
     }
 

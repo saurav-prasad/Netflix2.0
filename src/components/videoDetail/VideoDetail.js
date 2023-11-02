@@ -100,10 +100,12 @@ function VideoDetail({ showAlert, setAlertText }) {
           const url = new URLSearchParams(new URL(value).search)
           navigate(`/video/${data.id}/${url.get('v')}`)
           setprogress(false)
+          window.scrollTo(0, 0);
         })
         .catch((e) => {
           setprogress(false)
           showAlert(true)
+          setAlertText('Trailer not available')
         })
     } catch (err) { console.log(err); }
   }

@@ -102,7 +102,7 @@ function App() {
       path: '/history',
       element: <>
         <Nav showBackButton={true} />
-        <VideoListing />
+        <VideoListing  setAlertText={setAlertText} showAlert={showAlert} />
         <Footer />
       </>
     },
@@ -110,7 +110,7 @@ function App() {
       path: '/wishlist',
       element: <>
         <Nav showBackButton={true} />
-        <VideoListing />
+        <VideoListing setAlertText={setAlertText} showAlert={showAlert} />
         <Footer />
       </>
     },

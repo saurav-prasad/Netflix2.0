@@ -29,7 +29,6 @@
 .vdoDtlDetailBox {
     padding: 20px 12px;
     padding-bottom: 30px;
-    /* padding-top: 100px; */
 }
 
 .vdoDtlTitleBox {
@@ -41,7 +40,7 @@
 
 .vdoDtlTitle {
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin-right: 5px;
 }
 
@@ -83,6 +82,9 @@
 
     .vdoDtlVideoImageBox:hover {
         transform: scale(1.03);
+    }
+    .vdoDtlVideo {
+        position: relative;
     }
 }
 
