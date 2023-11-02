@@ -52,7 +52,7 @@ function VideoDetail({ showAlert, setAlertText }) {
         movieData = movieData.data
         setMovieInfo(movieData)
         setVideoId(params.trailerid)
-        console.log(movieData);
+        // console.log(movieData);
         const a = {
           movieId: params.movieid,
           trailerId: params.trailerid,
