@@ -14,7 +14,7 @@ import Menu from '../menu/Menu';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
-function VideoDetail({ showAlert }) {
+function VideoDetail({ showAlert, setAlertText }) {
   const navigate = useNavigate()
   const { fetchMoviesData, addHistory, addWishList } = useVideoManagerState()
   const [videoId, setVideoId] = useState()
@@ -82,6 +82,12 @@ function VideoDetail({ showAlert }) {
     }
     if (localStorage.getItem('auth-token')) {
       addWishList(a)
+      setAlertText('Added to wishlist')
+      showAlert(true)
+    }
+    else {
+      showAlert(true)
+      setAlertText('Sign-in first')
     }
 
   }

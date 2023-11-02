@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
-function Banner({ showAlert }) {
+function Banner({ showAlert,setAlertText }) {
     const navigate = useNavigate()
     const [progress, setprogress] = useState(false)
 
@@ -23,6 +23,7 @@ function Banner({ showAlert }) {
             .catch((e) => {
                 setprogress(false)
                 showAlert(true)
+                setAlertText("Trailer not available")
             })
     }
 

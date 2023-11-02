@@ -15,6 +15,7 @@ import Signup from './components/signup/Signup';
 
 function App() {
   const [alert, setAlert] = useState(null);
+  const [alertText, setAlertText] = useState();
   const showAlert = (data) => {
     setAlert(data)
     setTimeout(() => {
@@ -78,22 +79,22 @@ function App() {
       path: '/',
       element: <>
         <Nav />
-        <Banner showAlert={showAlert} />
-        <Row showAlert={showAlert} isLargeRow={true} title='Netflix Originals' fetchUrl={requests.fetchNetflixOriginals} />
-        <Row showAlert={showAlert} title='Trending Now' fetchUrl={requests.fetchNetflixOriginals} />
-        <Row showAlert={showAlert} title='Top Rated' fetchUrl={requests.fetchTopRated} />
-        <Row showAlert={showAlert} title='Action' fetchUrl={requests.fetchActionMovies} />
-        <Row showAlert={showAlert} title='Comedy' fetchUrl={requests.fetchComedyMovies} />
-        <Row showAlert={showAlert} title='Horror' fetchUrl={requests.fetchHorrorMovies} />
-        <Row showAlert={showAlert} title='Romance' fetchUrl={requests.fetchRomanceMovies} />
-        <Row showAlert={showAlert} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
+        <Banner setAlertText={setAlertText} showAlert={showAlert} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} isLargeRow={true} title='Netflix Originals' fetchUrl={requests.fetchNetflixOriginals} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Trending Now' fetchUrl={requests.fetchNetflixOriginals} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Top Rated' fetchUrl={requests.fetchTopRated} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Action' fetchUrl={requests.fetchActionMovies} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Comedy' fetchUrl={requests.fetchComedyMovies} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Horror' fetchUrl={requests.fetchHorrorMovies} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Romance' fetchUrl={requests.fetchRomanceMovies} />
+        <Row setAlertText={setAlertText} showAlert={showAlert} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
         <Footer />
       </>
     },
     {
       path: '/video/:movieid/:trailerid',
       element: <>
-        <VideoDetail showAlert={showAlert} />
+        <VideoDetail setAlertText={setAlertText} showAlert={showAlert} />
         <Footer />
       </>
     },
@@ -124,7 +125,7 @@ function App() {
   ])
   return (
     <div className='App'>
-      <Alrt showAlert={alert} />
+      <Alrt alertText={alertText} showAlert={alert} />
       <RouterProvider router={router} />
     </div>
   );

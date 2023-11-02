@@ -8,7 +8,7 @@ import { useHomeState } from '../../context/homeContext/HomeState';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
-function Row({ title, fetchUrl, isLargeRow, showAlert }) {
+function Row({ title, fetchUrl, isLargeRow, showAlert,setAlertText }) {
     const navigate = useNavigate()
     const [counter, setcounter] = useState()
     const [progress, setprogress] = useState(false)
@@ -29,6 +29,7 @@ function Row({ title, fetchUrl, isLargeRow, showAlert }) {
                 .catch((e) => {
                     setprogress(false)
                     showAlert(true)
+                    setAlertText("Trailer not available")
                 })
             setcounter(data.id)
         }
