@@ -9,6 +9,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useUserDataState } from '../../context/userDataContext/UserDataState';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Menu from '../menu/Menu';
 
 function Nav({ showBackButton }) {
     const [handleShow, sethandleShow] = useState(false)
@@ -58,50 +59,7 @@ function Nav({ showBackButton }) {
                 }
                 <img onClick={() => navigate('/')} src="https://about.netflix.com/images/logo.png" className='cursorPointer netflixLogo' alt="" />
             </div>
-            <div className='relative'>
-                <img onClick={() => setToggleMenu(!toggleMenu)} src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f?format=jpg&name=360x360" alt="" className='userLogo cursorPointer' />
-
-                {
-                    toggleMenu && <div className='transition-all duration-700 rounded absolute px-5 pt-10 pb-5 flex flex-col justify-start items-start w-40 top-0 right-0 bg-gray-700 text-white'>
-
-                        <CloseRoundedIcon onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer absolute right-3 top-3' />
-                        <Link to="/" className=' my-3 w-full'>
-                            <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light'>
-                                <HomeRoundedIcon fontSize='small' className='mr-1' />Home
-                            </span>
-                        </Link>
-                        <Link to="/history" className=' my-3 w-full'>
-                            <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light'>
-                                <HistoryRoundedIcon fontSize='small' className='mr-1' />History
-                            </span>
-                        </Link>
-                        <Link className='my-3 w-full' to="/wishlist">
-                            <span onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer font-light '>
-                                <FavoriteBorderRoundedIcon fontSize='small' className='mr-1' />Wishlist
-                            </span>
-                        </Link>
-                        {checkUser ?
-                            <>
-                                <span className='font-light my-2'>
-                                    👋 Hi {checkUser}
-                                </span>
-                                <span onClick={() => { logOut(); setToggleMenu(!toggleMenu) }}
-                                    className='cursorPointer font-light my-2'>
-                                    <LogoutRoundedIcon fontSize='small' className='mr-1' />Log out
-                                </span>
-                            </> :
-                            <>
-                                <Link to="/signin" className=' my-3 w-full'>
-                                    <span onClick={() => { setToggleMenu(!toggleMenu) }}
-                                        className='cursorPointer font-light'>
-                                        <ArrowForwardRoundedIcon fontSize='small' className='mr-1' />Sign In
-                                    </span>
-                                </Link>
-                            </>
-                        }
-                    </div>
-                }
-            </div>
+            <Menu/>
         </div>
     )
 }

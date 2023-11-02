@@ -21,7 +21,7 @@
 
 .vdoDtlVideo {
     position: sticky;
-    top: 64px;
+    top: 0px;
     z-index: 10;
     box-shadow: 0px 2px 20px 14px rgb(26 26 26);
 }
@@ -29,7 +29,7 @@
 .vdoDtlDetailBox {
     padding: 20px 12px;
     padding-bottom: 30px;
-    padding-top: 100px;
+    /* padding-top: 100px; */
 }
 
 .vdoDtlTitleBox {
@@ -87,7 +87,7 @@
 }
 
 .vdoDtlVideoImageBox {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     transition: transform 150ms ease-in;
 }
 

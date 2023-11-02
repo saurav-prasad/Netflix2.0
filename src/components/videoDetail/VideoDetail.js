@@ -9,6 +9,8 @@ import movieTrailer from 'movie-trailer';
 import { LinearProgress } from '@mui/material';
 import { useVideoManagerState } from '../../context/videoManagerContext/VideoManagerContext';
 import instance from '../../axios';
+import Nav from '../nav/Nav';
+import Menu from '../menu/Menu';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 
@@ -18,7 +20,7 @@ function VideoDetail({ showAlert }) {
   const [videoId, setVideoId] = useState()
   const params = useParams()
   const [Movies, setMovies] = useState([])
-  const [videoHeight, setVideoHeight] = useState(350)
+  const [videoHeight, setVideoHeight] = useState(260)
   const [progress, setprogress] = useState(false)
   const [movieInfo, setMovieInfo] = useState({})
 
@@ -102,6 +104,14 @@ function VideoDetail({ showAlert }) {
 
   return (
     <div className='vdoDtl'>
+      <div className={`vdoDtlNav flexCenter navColor`}>
+        <div className='flexCenter' style={{ flexDirection: 'row' }}>
+          < KeyboardBackspaceRoundedIcon fontSize='large' onClick={() => navigate(-1)} className='cursorPointer' />
+          <img onClick={() => navigate('/')} src="https://about.netflix.com/images/logo.png" className='cursorPointer netflixLogo' alt="" />
+        </div>
+        <Menu />
+      </div>
+
       <YouTube
         className='vdoDtlVideo'
         videoId={videoId && videoId}

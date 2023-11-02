@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import './App.css'
 import Banner from './components/banner/Banner';
 import Nav from './components/nav/Nav';
 import Row from './components/rows/Row';
@@ -94,7 +93,6 @@ function App() {
     {
       path: '/video/:movieid/:trailerid',
       element: <>
-        <Nav showBackButton={true} />
         <VideoDetail showAlert={showAlert} />
         <Footer />
       </>
