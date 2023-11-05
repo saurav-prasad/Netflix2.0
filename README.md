@@ -64,8 +64,9 @@ This project was built using the following technologies and tools:
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/166d7f82-615b-42bb-a144-4aca22e00e4e' />
 
 ## Screenshots - Mobile Screen
-
-<img style='margin-bottom:2rem,' src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cb6db09d-da85-4148-8a10-42bc9d50f42c'/>
+<h1 align='center'>Home, Video player</h1>
+<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cb6db09d-da85-4148-8a10-42bc9d50f42c'/>
+<h1 align='center'> History, Signup / Signin, Wishlist</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cfd9b7d5-3f82-491b-8c05-851cab11310c'/>
 
 ## Installation
