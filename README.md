@@ -2,7 +2,7 @@
 ![apple-touch-icon](https://github.com/saurav-prasad/Netflix2.0/assets/70149386/90633adf-6f45-4af3-9b24-a5c1f4d9f7ff)
 
 <h1>Netflix clone</h1>
-# Live Link : [https://netflix--saurav.vercel.app/]
+# Live Link : https://netflix--saurav.vercel.app/
 
 ## Table of Contents
 - [Introduction](#ntroduction)
@@ -65,8 +65,7 @@ This project was built using the following technologies and tools:
 
 ## Screenshots - Mobile Screen
 
-<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cb6db09d-da85-4148-8a10-42bc9d50f42c'/>
-<br/>
+<img style='margin-bottom:2rem,' src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cb6db09d-da85-4148-8a10-42bc9d50f42c'/>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cfd9b7d5-3f82-491b-8c05-851cab11310c'/>
 
 ## Installation
