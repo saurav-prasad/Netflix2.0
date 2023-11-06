@@ -25,6 +25,7 @@
 .searchVideos {
     margin-top: 50px;
     padding: 0 10px;
+margin-bottom: 50px;
 }
 
 @media (min-width:750px) {
