@@ -1,4 +1,4 @@
-# E-Commerce Project
+# Video Streaming Project
 ![apple-touch-icon](https://github.com/saurav-prasad/Netflix2.0/assets/70149386/90633adf-6f45-4af3-9b24-a5c1f4d9f7ff)
 
 <h1>Netflix clone</h1>
@@ -12,7 +12,7 @@
 
 ## Introduction
 
-With a focus on simplicity and clean design, this app prioritizes user experience, making it easy for customers to find and purchase the necessary products they need.
+With a focus on simplicity and clean design, this app prioritizes user experience, making it easy for viewers to watch movies comfortably.
 ## Tech Stack
 
 This project was built using the following technologies and tools:
