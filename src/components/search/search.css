@@ -1,0 +1,56 @@
+.search {
+    padding-top: 80px;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.searchInputBox {
+    position: sticky;
+    top: 70px;
+    z-index: 10;
+    box-shadow: 0px -6px 16px 9px rgb(20 20 20);
+    background-color: #141414;
+}
+.searchSkele{
+    background-color: #404040 !important;
+}
+.searchInput {
+    /* margin-bottom: 50px; */
+    color: rgb(255, 0, 0);
+    font-size: 1.15rem;
+    box-shadow: 0px -11px 15px 20px rgb(20 20 20);
+}
+
+.searchVideos {
+    margin-top: 50px;
+    padding: 0 10px;
+}
+
+@media (min-width:750px) {
+    .searchVideos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 15px;
+    }
+
+    .vdoDtlVideoImageBox:hover {
+        transform: scale(1.03);
+    }
+
+    .vdoDtlVideo {
+        position: relative;
+    }
+}
+
+@media (max-width:750px) {
+    .searchTitle {
+        font-size: 1rem;
+    }
+
+    .searchVideos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 15px;
+    }
+}

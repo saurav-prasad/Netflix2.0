@@ -57,7 +57,9 @@
 .vdoDtlDetail {
     margin: 15px 0;
 }
-
+.vdoDtlRating{
+    font-weight: 500;
+}
 .vdoDtlRating span {
     color: #5bef80;
 
@@ -65,7 +67,7 @@
 
 .vdoDtlDate {
     margin: 15px 0;
-
+    font-weight: 600;
 }
 
 .vdoDtlVideos {
@@ -83,6 +85,7 @@
     .vdoDtlVideoImageBox:hover {
         transform: scale(1.03);
     }
+
     .vdoDtlVideo {
         position: relative;
     }
@@ -105,6 +108,12 @@
     font-size: 1.25rem;
     font-weight: 500;
 }
-.vdoDtlGenres{
+
+.vdoDtlGenres {
     margin-left: 5px;
+}
+
+.vdoDtlDateText,
+.vdoDtlGenres,.vdoDtlRatingText {
+    font-weight: 400;
 }

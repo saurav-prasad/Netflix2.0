@@ -50,9 +50,9 @@ function VideoDetail({ showAlert, setAlertText }) {
 
         let movieData = await instance.get(`/movie/${params.movieid}?api_key=${process.env.REACT_APP_API}`)
         movieData = movieData.data
+        console.log(movieData);
         setMovieInfo(movieData)
         setVideoId(params.trailerid)
-        // console.log(movieData);
         const a = {
           movieId: params.movieid,
           trailerId: params.trailerid,
@@ -131,18 +131,23 @@ function VideoDetail({ showAlert, setAlertText }) {
           <FavoriteTwoToneIcon onClick={addToWishList} className='vdoDtlLike' fontSize='large' />
         </div>
 
-        {movieInfo.tagline && <p className='vdoDtlDetail text-xl text-blue-300'>Tagline: "{movieInfo?.tagline}"</p>}
+        {movieInfo.tagline && <p className='vdoDtlDetail text-xl text-blue-300'>Tagline : "{movieInfo?.tagline}"</p>}
         <p className='vdoDtlDetail'>{movieInfo?.overview}</p>
-        <p className='vdoDtlRating'>Rating: <span>{movieInfo?.vote_average} points</span></p>
-        <p className='vdoDtlDate'>Genres: <span>{movieInfo?.genres?.map((a) => <span className='vdoDtlGenres'>{a.name}</span>)} </span></p>
-        <p className='vdoDtlDate'>Release Data: {movieInfo?.release_date || movieInfo?.first_air_date}</p>
+        <p className='vdoDtlRating'>Rating : <span className='vdoDtlRatingText'>{movieInfo?.vote_average} points</span></p>
+        <p className='vdoDtlDate'>Genres :
+          <span>
+            {
+              movieInfo?.genres?.slice(0, 4).map((a) => <span className='vdoDtlGenres'>{a.name}</span>)
+            }
+          </span>
+        </p>
+        <p className='vdoDtlDate'>Release Data : <span className='vdoDtlDateText'>{movieInfo?.release_date || movieInfo?.first_air_date}</span></p>
       </div>
       <div className='vdoDtlVideos'>
         {Movies &&
           Movies.map(data =>
             <div key={data.id} onClick={() => { nextMovie(data); }} className='vdoDtlVideoImageBox'>
               <img
-                key={data.id}
                 className="vdoDtlVideoImage cursorPointer"
 
                 src={`${imageUrl}${data?.backdrop_path}` ?? 'https://thumbs.gfycat.com/BackIllinformedAsianelephant-size_restricted.gif'}
@@ -150,12 +155,12 @@ function VideoDetail({ showAlert, setAlertText }) {
                 alt={data?.name}
               />
               <p className='vdoDtlVideoImageTitle'>{data?.original_name || data?.name || data?.title}</p>
+              {
+                progress &&
+                <LinearProgress style={{ marginBottom: '7px', backgroundColor: "#dc191f", color: '#dc191f' }} color='inherit' />
+              }
             </div>
           )
-        }
-        {
-          progress &&
-          <LinearProgress style={{ marginBottom: '7px', backgroundColor: "#dc191f", color: '#dc191f' }} color='inherit' />
         }
       </div>
     </div>

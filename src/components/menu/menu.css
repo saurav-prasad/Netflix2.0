@@ -1,0 +1,7 @@
+.menu {
+    flex-direction: row;
+}
+
+.menuSearch {
+    margin-right: 20px;
+}

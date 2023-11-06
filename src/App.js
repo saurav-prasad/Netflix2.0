@@ -12,6 +12,7 @@ import VideoListing from './components/videoListing/VideoListing';
 import { useUserDataState } from './context/userDataContext/UserDataState';
 import { backend } from './axios';
 import Signup from './components/signup/Signup';
+import Search from './components/search/Search';
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -23,6 +24,7 @@ function App() {
     }, 1000)
   }
   const [user, dispatch] = useUserDataState()
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -102,7 +104,7 @@ function App() {
       path: '/history',
       element: <>
         <Nav showBackButton={true} />
-        <VideoListing  setAlertText={setAlertText} showAlert={showAlert} />
+        <VideoListing setAlertText={setAlertText} showAlert={showAlert} />
         <Footer />
       </>
     },
@@ -121,6 +123,13 @@ function App() {
     {
       path: '/signin',
       element: <Signup />
+    },
+    {
+      path: '/search',
+      element: <>
+        <Nav showBackButton={true} />
+        <Search setAlertText={setAlertText} showAlert={showAlert} />
+      </>
     }
   ])
   return (

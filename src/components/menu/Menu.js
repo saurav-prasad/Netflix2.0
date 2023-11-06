@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useUserDataState } from '../../context/userDataContext/UserDataState'
-import { Link,  } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import './menu.css'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 function Menu() {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -25,11 +27,12 @@ function Menu() {
     }, [user])
 
     return (
-        <div className='relative'>
+        <div className='relative menu flexCenter'>
+            <Link to="/search"><SearchRoundedIcon className='menuSearch' fontSize='large' /></Link>
             <img onClick={() => setToggleMenu(!toggleMenu)} src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f?format=jpg&name=360x360" alt="" className='userLogo cursorPointer ' />
 
             {
-                toggleMenu && <div className='z-20 rounded absolute px-5 pt-10 pb-5 flex justify-start items-start w-40 top-0 right-0 bg-gray-700 text-white' style={{flexDirection:'column'}}>
+                toggleMenu && <div className='z-20 rounded absolute px-5 pt-10 pb-5 flex justify-start items-start w-40 top-0 right-0 bg-gray-700 text-white' style={{ flexDirection: 'column' }}>
 
                     <CloseRoundedIcon onClick={() => setToggleMenu(!toggleMenu)} className='cursorPointer absolute right-3 top-3' />
                     <Link to="/" className=' my-3 w-full'>
