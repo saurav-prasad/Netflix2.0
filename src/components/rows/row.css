@@ -3,6 +3,19 @@
     padding-left: 20px;
 }
 
+.rowSkeleBox {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.rowSkele {
+    min-width: 17rem !important;
+    margin-right: 10px;
+    background-color: #404040 !important;
+}
+
 .rowTitle {
     color: white;
     font-size: 1.6rem;
@@ -19,7 +32,7 @@
     padding-bottom: 100px;
 }
 
-.rowPosterConatainer::-webkit-scrollbar {
+.rowPosterConatainer::-webkit-scrollbar,.rowSkeleBox::-webkit-scrollbar {
     display: none;
 }
 
@@ -40,7 +53,7 @@
     margin-right: 10px;
 }
 
-.clickedImage{
+.clickedImage {
     border: 2.5px solid transparent;
     border-image: linear-gradient(to right, #dc191f, #009eff) 1;
 }
