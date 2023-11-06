@@ -68,6 +68,8 @@ function History({ showAlert,setAlertText }) {
             deleteHistory(movieId)) ||
             ((pathnames[0] === 'wishlist') &&
                 deleteWishList(movieId))
+                showAlert(true)
+                setAlertText(`Video removed from ${pathnames[0]}`)
     }
 
     return (
