@@ -129,6 +129,7 @@ function App() {
       element: <>
         <Nav showBackButton={true} />
         <Search setAlertText={setAlertText} showAlert={showAlert} />
+<Footer/>
       </>
     }
   ])
