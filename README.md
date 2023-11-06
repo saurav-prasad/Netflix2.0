@@ -54,6 +54,10 @@ This project was built using the following technologies and tools:
 <h1 align='center'>Video player</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/898b02e6-e478-42da-b8a0-a41dd1c573c6'/>
 
+<h1 align='center'>Search Movies</h1>
+<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/d843269e-c9f3-4c72-b77e-48a9f48b0cae'/>
+
+
 <h1 align='center'>History</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/757ad20c-3cbf-4ac0-870d-b260c2345114' />
 
