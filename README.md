@@ -1,4 +1,4 @@
-# E-Commerce Project
+# Video Streaming Project
 ![apple-touch-icon](https://github.com/saurav-prasad/Netflix2.0/assets/70149386/90633adf-6f45-4af3-9b24-a5c1f4d9f7ff)
 
 <h1>Netflix clone</h1>
@@ -12,7 +12,7 @@
 
 ## Introduction
 
-With a focus on simplicity and clean design, this app prioritizes user experience, making it easy for customers to find and purchase the necessary products they need.
+With a focus on simplicity and clean design, this app prioritizes user experience, making it easy for viewers to watch movies comfortably.
 ## Tech Stack
 
 This project was built using the following technologies and tools:
@@ -54,6 +54,10 @@ This project was built using the following technologies and tools:
 <h1 align='center'>Video player</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/898b02e6-e478-42da-b8a0-a41dd1c573c6'/>
 
+<h1 align='center'>Search Movies</h1>
+<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/d843269e-c9f3-4c72-b77e-48a9f48b0cae'/>
+
+
 <h1 align='center'>History</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/757ad20c-3cbf-4ac0-870d-b260c2345114' />
 
@@ -64,8 +68,8 @@ This project was built using the following technologies and tools:
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/166d7f82-615b-42bb-a144-4aca22e00e4e' />
 
 ## Screenshots - Mobile Screen
-<h1 align='center'>Home, Video player</h1>
-<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cb6db09d-da85-4148-8a10-42bc9d50f42c'/>
+<h1 align='center'>Home, Search Movies, Video player</h1>
+<img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/4ba82bda-8bd8-49f1-b2b2-afec165758ce'/>
 <h1 align='center'> History, Signup / Signin, Wishlist</h1>
 <img src='https://github.com/saurav-prasad/Netflix2.0/assets/70149386/cfd9b7d5-3f82-491b-8c05-851cab11310c'/>
 

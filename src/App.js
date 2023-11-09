@@ -131,7 +131,11 @@ function App() {
       element: <>
         <Nav showBackButton={true} />
         <Search setAlertText={setAlertText} showAlert={showAlert} />
+<<<<<<< HEAD
         <Footer />
+=======
+<Footer/>
+>>>>>>> 7d3902515e6e26de44997a9a7ec0b42c0824a363
       </>
     }
   ])

@@ -25,7 +25,11 @@
 .searchVideos {
     margin-top: 50px;
     padding: 0 10px;
+<<<<<<< HEAD
     padding-bottom: 85px;
+=======
+padding-bottom: 80px;
+>>>>>>> 7d3902515e6e26de44997a9a7ec0b42c0824a363
 }
 
 @media (min-width:750px) {
