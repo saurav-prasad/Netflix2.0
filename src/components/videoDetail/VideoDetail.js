@@ -16,7 +16,7 @@ const imageUrl = 'https://image.tmdb.org/t/p/original'
 
 function VideoDetail({ showAlert, setAlertText }) {
   const navigate = useNavigate()
-  const { fetchMoviesData, addHistory, addWishList } = useVideoManagerState()
+  const {  addHistory, addWishList } = useVideoManagerState()
   const [videoId, setVideoId] = useState()
   const params = useParams()
   const [Movies, setMovies] = useState([])
@@ -155,14 +155,12 @@ function VideoDetail({ showAlert, setAlertText }) {
                 alt={data?.name}
               />
               <p className='vdoDtlVideoImageTitle'>{data?.original_name || data?.name || data?.title}</p>
-              {
-                progress &&
-                <LinearProgress style={{ marginBottom: '7px', backgroundColor: "#dc191f", color: '#dc191f' }} color='inherit' />
-              }
+              
             </div>
           )
         }
       </div>
+      
     </div>
   )
 }

@@ -24,7 +24,7 @@ function App() {
     }, 1000)
   }
   const [user, dispatch] = useUserDataState()
-  
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -82,14 +82,16 @@ function App() {
       element: <>
         <Nav />
         <Banner setAlertText={setAlertText} showAlert={showAlert} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} isLargeRow={true} title='Netflix Originals' fetchUrl={requests.fetchNetflixOriginals} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Trending Now' fetchUrl={requests.fetchNetflixOriginals} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Top Rated' fetchUrl={requests.fetchTopRated} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Action' fetchUrl={requests.fetchActionMovies} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Comedy' fetchUrl={requests.fetchComedyMovies} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Horror' fetchUrl={requests.fetchHorrorMovies} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Romance' fetchUrl={requests.fetchRomanceMovies} />
-        <Row setAlertText={setAlertText} showAlert={showAlert} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
+        <div className='pt-2 pb-16'>
+          <Row setAlertText={setAlertText} showAlert={showAlert} isLargeRow={true} title='Netflix Originals' fetchUrl={requests.fetchNetflixOriginals} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Trending Now' fetchUrl={requests.fetchNetflixOriginals} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Top Rated' fetchUrl={requests.fetchTopRated} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Action' fetchUrl={requests.fetchActionMovies} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Comedy' fetchUrl={requests.fetchComedyMovies} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Horror' fetchUrl={requests.fetchHorrorMovies} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Romance' fetchUrl={requests.fetchRomanceMovies} />
+          <Row setAlertText={setAlertText} showAlert={showAlert} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
+        </div>
         <Footer />
       </>
     },
@@ -129,6 +131,7 @@ function App() {
       element: <>
         <Nav showBackButton={true} />
         <Search setAlertText={setAlertText} showAlert={showAlert} />
+        <Footer />
       </>
     }
   ])

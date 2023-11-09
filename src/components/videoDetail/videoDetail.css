@@ -57,12 +57,13 @@
 .vdoDtlDetail {
     margin: 15px 0;
 }
-.vdoDtlRating{
+
+.vdoDtlRating {
     font-weight: 500;
 }
+
 .vdoDtlRating span {
     color: #5bef80;
-
 }
 
 .vdoDtlDate {
@@ -114,6 +115,7 @@
 }
 
 .vdoDtlDateText,
-.vdoDtlGenres,.vdoDtlRatingText {
+.vdoDtlGenres,
+.vdoDtlRatingText {
     font-weight: 400;
 }
