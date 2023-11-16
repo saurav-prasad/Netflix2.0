@@ -108,16 +108,20 @@ function Search({ showAlert, setAlertText }) {
         } catch (err) { console.log(err); }
     }
 
-
+    let timer = null
     const filtr = (filterValue) => {
-        setMovies(allMovie.filter((data) => {
-            const a = data?.title?.toLowerCase()
-            const b = data?.original_title?.toLowerCase()
-            const c = data?.overview?.toLowerCase()
-            const d = data?.tagline?.toLowerCase()
-            const e = data?.title?.toLowerCase()
-            return a?.includes(filterValue) || b?.includes(filterValue) || c?.includes(filterValue) || d?.includes(filterValue) || e?.includes(filterValue)
-        }))
+        if (timer !== null) clearTimeout(timer)
+        timer = setTimeout(() => {
+            setMovies(allMovie.filter((data) => {
+                const a = data?.title?.toLowerCase()
+                const b = data?.original_title?.toLowerCase()
+                const c = data?.overview?.toLowerCase()
+                const d = data?.tagline?.toLowerCase()
+                const e = data?.title?.toLowerCase()
+                return a?.includes(filterValue) || b?.includes(filterValue) || c?.includes(filterValue) || d?.includes(filterValue) || e?.includes(filterValue)
+            }))
+            timer = null
+        }, 1000)
     }
 
     const filterByWords = (value) => {
@@ -135,6 +139,7 @@ function Search({ showAlert, setAlertText }) {
         }
 
     }
+
     const trim = (str, n) => {
         return str?.length > n ? str.slice(0, str.charAt(n) === " " ? n - 1 : n) + "..." : str
     }
@@ -149,7 +154,7 @@ function Search({ showAlert, setAlertText }) {
                     placeholder="Search Movies..."
                 ></input>
             </div>
-            { progress ?
+            {progress ?
                 <div className='searchVideos vdoDtlVideos'>
                     {Array.from({ length: 8 }).map((_) =>
                         <>

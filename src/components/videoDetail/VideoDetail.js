@@ -6,10 +6,8 @@ import requests from '../../requests';
 import { useNavigate, useParams } from 'react-router-dom';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import movieTrailer from 'movie-trailer';
-import { LinearProgress } from '@mui/material';
 import { useVideoManagerState } from '../../context/videoManagerContext/VideoManagerContext';
 import instance from '../../axios';
-import Nav from '../nav/Nav';
 import Menu from '../menu/Menu';
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
